@@ -4,6 +4,7 @@ import com.example.sweaterv.domain.Role;
 import com.example.sweaterv.domain.User;
 import com.example.sweaterv.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import java.util.Collections;
 public class RegistrationController {
     @Autowired
     private UserRepo userRepo;
+
     @GetMapping("/registration")
     public String registration() {
         return "registration";
@@ -28,10 +30,10 @@ public class RegistrationController {
             model.addAttribute("message", "User exists!");
             return "registration";
         }
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepo.save(user);
+            user.setActive(true);
+            user.setRoles(Collections.singleton(Role.USER));
+            userRepo.save(user);
 
-       return "redirect:/login";
+            return "redirect:/login";
     }
 }
